@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NRR Calculator</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+      crossorigin="anonymous"
+    />
+    <style>
+      .error {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="container-lg d-flex justify-content-center">
+      <img src="./images/banner.jpeg" alt="" width="100%" />
+    </section>
+    <section>
+      <div class="container-lg py-3">
+        <h1 class="text-primary text-bold mb-3 text-center">
+          Net Run Rate Calculator
+        </h1>
+        <div class="card p-3">
+          <form action="" id="NRR_form">
+            <div class="my-4 col-md-4">
+              <label class="form-label"
+                >Total Overs for an innings of the match</label
+              >
+              <input
+                type="number"
+                class="form-control"
+                placeholder="Enter the overs of an innings"
+                id="innings_overs"
+                name="innings_overs"
+              />
+            </div>
+            <hr />
+            <div class="teams">
+              <div class="team1 col-md-6 col-sm-6 py-2 mb-3" id="team1">
+                <h2>Team 1 (First Bat)</h2>
+                <div class="mb-3">
+                  <label class="form-label">Total Runs the team got</label>
+                  <input
+                    type="number"
+                    class="form-control runs"
+                    placeholder="Enter the total runs"
+                    name="team1_runs"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Number of overs played</label>
+                  <div class="row g-3">
+                    <div class="form-group col-auto">
+                      <input
+                        type="number"
+                        class="form-control overs"
+                        placeholder="Overs"
+                        name="team1_overs"
+                      />
+                    </div>
+                    <div class="form-group col-auto">
+                      <input
+                        type="number"
+                        class="form-control balls"
+                        placeholder="Balls"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="form-check">
+                  <label class="form-check-label" for="flexCheckChecked1">
+                    Is team All out ?
+                  </label>
+                  <input
+                    class="form-check-input allOut"
+                    type="checkbox"
+                    value="1"
+                    id="flexCheckChecked1"
+                  />
+                </div>
+              </div>
+              <hr />
+              <div class="team2 col-md-6 col-sm-6 py-2 mb-3" id="team2">
+                <h2>Team 2 (Second Bat)</h2>
+                <div class="mb-3">
+                  <label class="form-label">Total Runs the team got</label>
+                  <input
+                    type="number"
+                    class="form-control runs"
+                    placeholder="Enter the total runs"
+                    name="team2_runs"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Number of overs played</label>
+                  <div class="row g-3">
+                    <div class="form-group col-auto">
+                      <input
+                        type="number"
+                        class="form-control overs"
+                        placeholder="Overs"
+                        name="team2_overs"
+                      />
+                    </div>
+                    <div class="form-group col-auto">
+                      <input
+                        type="number"
+                        class="form-control balls"
+                        placeholder="Balls"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="form-check">
+                  <label class="form-check-label" for="flexCheckChecked2">
+                    Is team All out ?
+                  </label>
+                  <input
+                    class="form-check-input allOut"
+                    type="checkbox"
+                    value="2"
+                    id="flexCheckChecked2"
+                  />
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary mb-2 me-1">
+              Calculate NRR
+            </button>
+            <input type="reset" class="btn btn-secondary mb-2" value="Reset" />
+          </form>
+          <hr />
+          <div class="result_Wrapper mt-2 py-2">
+            <div class="h5 text-bold mb-2">
+              NRR of Team 1 : <span id="NRR_1"> </span>
+            </div>
+            <div class="h5 text-bold mb-2">
+              NRR of Team 2 : <span id="NRR_2"> </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- javascript cdn links -->
+    <script
+      src="https://code.jquery.com/jquery-3.6.1.min.js"
+      integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/additional-methods.min.js"></script>
+
+    <!-- custom js -->
+    <script>
+      $("#NRR_form").validate({
+        rules: {
+          innings_overs: {
+            required: true,
+          },
+          team1_overs: {
+            required: true,
+          },
+          team1_runs: {
+            required: true,
+          },
+          team2_overs: {
+            required: true,
+          },
+          team2_runs: {
+            required: true,
+          },
+        },
+        // messages: {
+        //   name: {
+        //     required: "Name field is required",
+        //   },
+        // },
+
+        submitHandler: function (form) {
+          calculateNRR();
+        },
+      });
+      function calculateNRR() {
+        const inningsOvers = $("#innings_overs").val();
+        // $("#innings_overs").val(null);
+
+        // team1
+        var team1Runs = $("#team1 .runs").val();
+        var team1Overs = $("#team1 .overs").val();
+        var team1Balls = $("#team1 .balls").val();
+        var team1AllOut = $("#team1 .allOut").is(":checked");
+
+        if ((team1Balls == "") | (team1Balls == null)) {
+          var team1Balls = 0;
+        }
+
+        var totalOvers1 = parseFloat(team1Overs) + parseFloat(team1Balls) / 6;
+
+        if (team1AllOut == true) {
+          var NRR1 = team1Runs / inningsOvers;
+        } else {
+          var NRR1 = team1Runs / totalOvers1.toFixed(3);
+        }
+
+        // team2
+        var team2Runs = $("#team2 .runs").val();
+        var team2Overs = $("#team2 .overs").val();
+        var team2Balls = $("#team2 .balls").val();
+        var team2AllOut = $("#team2 .allOut").is(":checked");
+
+        if ((team2Balls == "") | (team2Balls == null)) {
+          var team2Balls = 0;
+        }
+
+        var totalOvers2 = parseFloat(team2Overs) + parseFloat(team2Balls) / 6;
+
+        if (team2AllOut == true) {
+          var NRR2 = team2Runs / inningsOvers;
+        } else {
+          var NRR2 = team2Runs / totalOvers2.toFixed(3);
+        }
+
+        $("#NRR_1").removeClass("text-success");
+        $("#NRR_2").removeClass("text-success");
+        $("#NRR_1").removeClass("text-danger");
+        $("#NRR_2").removeClass("text-danger");
+
+        // actual NRR
+        if (NRR1 > NRR2) {
+          let NRR = NRR1 - NRR2;
+          $("#NRR_1").addClass("text-success");
+          $("#NRR_2").addClass("text-danger");
+
+          $("#NRR_1").html("+" + NRR.toFixed(3));
+          $("#NRR_2").html("-" + NRR.toFixed(3));
+        } else {
+          let NRR = NRR2 - NRR1;
+
+          $("#NRR_1").addClass("text-danger");
+          $("#NRR_2").addClass("text-success");
+
+          $("#NRR_1").html("-" + NRR.toFixed(3));
+          $("#NRR_2").html("+" + NRR.toFixed(3));
+        }
+      }
+    </script>
+  </body>
+</html>
