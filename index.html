@@ -25,17 +25,30 @@
         </h1>
         <div class="card p-3">
           <form action="" id="NRR_form">
-            <div class="my-4 col-md-4">
-              <label class="form-label"
-                >Total Overs for an innings of the match</label
-              >
-              <input
-                type="number"
-                class="form-control"
-                placeholder="Enter the overs of an innings"
-                id="innings_overs"
-                name="innings_overs"
-              />
+            <div class="row">
+              <div class="my-4 col-md-4">
+                <label class="form-label"
+                  >Total Overs for an innings of the match</label
+                >
+                <input
+                  type="number"
+                  class="form-control"
+                  placeholder="Enter the overs of an innings"
+                  id="innings_overs"
+                  name="innings_overs"
+                />
+              </div>
+              <div class="my-4 col-md-4">
+                <label class="form-label">Number of Balls in an over</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  placeholder="Enter the number of balls in an over"
+                  id="balls_per_over"
+                  name="balls_per_over"
+                  value="6"
+                />
+              </div>
             </div>
             <hr />
             <div class="teams">
@@ -190,6 +203,7 @@
       });
       function calculateNRR() {
         const inningsOvers = $("#innings_overs").val();
+        const ballsPerOver = $("#balls_per_over").val();
         // $("#innings_overs").val(null);
 
         // team1
@@ -202,7 +216,9 @@
           var team1Balls = 0;
         }
 
-        var totalOvers1 = parseFloat(team1Overs) + parseFloat(team1Balls) / 6;
+        var totalOvers1 =
+          parseFloat(team1Overs) +
+          parseFloat(team1Balls) / parseFloat(ballsPerOver);
 
         if (team1AllOut == true) {
           var NRR1 = team1Runs / inningsOvers;
@@ -220,7 +236,9 @@
           var team2Balls = 0;
         }
 
-        var totalOvers2 = parseFloat(team2Overs) + parseFloat(team2Balls) / 6;
+        var totalOvers2 =
+          parseFloat(team2Overs) +
+          parseFloat(team2Balls) / parseFloat(ballsPerOver);
 
         if (team2AllOut == true) {
           var NRR2 = team2Runs / inningsOvers;
